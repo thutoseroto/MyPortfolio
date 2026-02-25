@@ -42,3 +42,7 @@ I'm a passionate Software Engineering student at WeThinkCode, building my dream 
   - Customer service, stock management, and team collaboration
 
 ## 📁 Project Structure
+## 🧮 Featured Project: Currency Calculator
+A real-time currency converter supporting USD, ZAR, and BWP with live exchange rates.
+[Try it here](https://thutoseroto.github.io/MyPortfolio/projects/currency-calculator/)
+
