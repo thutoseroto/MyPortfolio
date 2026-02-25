@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Thuto Seroto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin: 4rem 0;
+        }
+
+        .contact-info {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-left: 4px solid var(--bold-red);
+        }
+
+        .contact-method {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: white;
+        }
+
+        .contact-method h3 {
+            color: var(--bold-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--bold-red);
+        }
+
+        /* Form status message styles */
+        #form-status {
+            margin-top: 1.5rem;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-left: 4px solid #28a745;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-left: 4px solid #dc3545;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="main-nav">
+        <div class="logo">THUTO SEROTO</div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="projects.html">PROJECTS</a></li>
+            <li><a href="contact.html" class="active">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <div style="text-align: center; margin: 4rem 0;">
+        <span class="greeting">GET IN TOUCH</span>
+        <h1>Let's build something<br><span style="color: var(--bold-red);">amazing together</span></h1>
+    </div>
+
+    <div class="contact-grid">
+        <div class="contact-info">
+            <h2 style="margin-bottom: 2rem;">Connect with me</h2>
+
+            <!-- EMAIL SECTION -->
+            <div class="contact-method">
+                <h3>📧 EMAIL</h3>
+                <p><strong>thutoseroto@gmail.com</strong></p>
+                <p style="font-size: 0.9rem; color: var(--text-light);">(Click the button below to copy)</p>
+                <button class="copy-email" onclick="copyEmail()">Copy Email Address</button>
+            </div>
+
+            <!-- GITHUB SECTION -->
+            <div class="contact-method">
+                <h3>💻 GITHUB</h3>
+                <p><a href="https://github.com/Thuto-Seroto" target="_blank" style="color: var(--bold-red);">github.com/Thuto-Seroto</a></p>
+            </div>
+
+            <!-- LINKEDIN SECTION -->
+            <div class="contact-method">
+                <h3>💼 LINKEDIN</h3>
+                <p><a href="https://www.linkedin.com/in/thuto-seroto-a2a84a395" target="_blank" style="color: var(--bold-red);">linkedin.com/in/thuto-seroto</a></p>
+            </div>
+
+            <!-- QUOTE SECTION -->
+            <div class="quote-section" style="margin-top: 2rem; padding: 1.5rem;">
+                <p style="font-size: 1.2rem;">"Yes I Shine Because I'm A SOFTWARE ENGINEER"</p>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h2 style="margin-bottom: 2rem;">Send a message</h2>
+
+            <!-- Formspree Form (AJAX version - no page reload) -->
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+
+                <!-- Honeypot field to prevent spam (hidden from users) -->
+                <input type="text" name="_gotcha" style="display: none;">
+
+                <button type="submit" class="btn-primary" style="width: 100%;" id="submit-btn">SEND MESSAGE</button>
+            </form>
+
+            <!-- Form status message will appear here -->
+            <div id="form-status"></div>
+
+            <!-- Direct email link as backup -->
+            <div style="margin-top: 2rem; text-align: center;">
+                <p style="color: var(--text-light);">Or send an email directly:</p>
+                <a href="mailto:thutoseroto@gmail.com" class="btn-secondary" style="display: inline-block;">thutoseroto@gmail.com</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="social-links">
+            <a href="https://github.com/Thuto-Seroto" target="_blank">GITHUB</a>
+            <a href="https://www.linkedin.com/in/thuto-seroto-a2a84a395" target="_blank">LINKEDIN</a>
+            <a href="mailto:thutoseroto@gmail.com">EMAIL</a>
+        </div>
+        <p>© 2026 THUTO SEROTO · WETHINKCODE STUDENT</p>
+    </div>
+</footer>
+
+<script>
+    // Function to copy email to clipboard
+    function copyEmail() {
+        const email = 'thutoseroto@gmail.com';
+        navigator.clipboard.writeText(email).then(() => {
+            alert('Email copied to clipboard!');
+        }).catch(() => {
+            alert('Failed to copy email');
+        });
+    }
+</script>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>
