@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currency Calculator - USD | ZAR | BWP</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <div class="converter-card">
+    <div class="header">
+      <h1>💱 Currency Calculator</h1>
+      <p class="subtitle">USD · ZAR · BWP</p>
+    </div>
+
+    <!-- Amount Input -->
+    <div class="input-group">
+      <label for="amount">Amount</label>
+      <input type="number" id="amount" placeholder="Enter amount" value="1.00" step="0.01" min="0">
+    </div>
+
+    <!-- From Currency -->
+    <div class="currency-row">
+      <div class="currency-select">
+        <label>From</label>
+        <select id="fromCurrency">
+          <option value="USD" selected>🇺🇸 USD - US Dollar</option>
+          <option value="ZAR">🇿🇦 ZAR - South African Rand</option>
+          <option value="BWP">🇧🇼 BWP - Botswana Pula</option>
+        </select>
+      </div>
+
+      <div class="swap-button">
+        <button id="swapBtn" title="Swap currencies">⇄</button>
+      </div>
+
+      <div class="currency-select">
+        <label>To</label>
+        <select id="toCurrency">
+          <option value="USD">🇺🇸 USD - US Dollar</option>
+          <option value="ZAR" selected>🇿🇦 ZAR - South African Rand</option>
+          <option value="BWP">🇧🇼 BWP - Botswana Pula</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Conversion Result -->
+    <div class="result-section">
+      <div class="result-card">
+        <p class="result-label">Converted Amount</p>
+        <p class="result-value" id="result">0.00</p>
+        <p class="result-rate" id="rate">1 USD = 18.50 ZAR</p>
+      </div>
+    </div>
+
+    <!-- Last Updated -->
+    <div class="footer-note">
+      <p id="lastUpdated">Rates updated: Just now</p>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
