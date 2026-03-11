@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder - Thuto Seroto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1>🍳 Recipe Finder</h1>
+        <p>Search for recipes by ingredients you have at home</p>
+    </header>
+
+    <div class="search-section">
+        <div class="search-box">
+            <input type="text" id="ingredientInput" placeholder="Enter ingredients (e.g., chicken, tomato, pasta)" value="chicken">
+            <button id="searchBtn" class="btn-primary">Find Recipes</button>
+        </div>
+        <p class="hint">Try: chicken, tomato, pasta, rice, eggs, onion</p>
+    </div>
+
+    <div class="category-tabs">
+        <button class="tab-btn active" data-category="all">All Recipes</button>
+        <button class="tab-btn" data-category="south-african">🇿🇦 South African</button>
+        <button class="tab-btn" data-category="international">International</button>
+    </div>
+
+    <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Searching for recipes...</p>
+    </div>
+
+    <div id="results" class="results-grid"></div>
+
+    <div id="recipeModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="recipeDetails"></div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

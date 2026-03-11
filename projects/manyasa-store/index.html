@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaNyasa Store - Malawian Treasures</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="announcement-bar">
+    <p>🇲🇼 Free shipping to Malawi on orders over R500 🇲🇼</p>
+</div>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <h1>MaNyasa<span>Store</span></h1>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#clothing">Clothing</a></li>
+            <li><a href="#crafts">Crafts</a></li>
+            <li><a href="#kitchen">Kitchen</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <button class="icon-btn" id="searchBtn">🔍</button>
+            <button class="icon-btn" id="cartBtn">🛒 <span id="cartCount">0</span></button>
+            <button class="icon-btn" id="menuBtn" class="mobile-only">☰</button>
+        </div>
+    </div>
+</nav>
+
+<div class="search-bar hidden" id="searchBar">
+    <input type="text" placeholder="Search for Malawian treasures...">
+    <button>Search</button>
+</div>
+
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Discover the Heart of Malawi</h1>
+            <p>Traditional crafts, vibrant fabrics, and handmade treasures delivered to your door.</p>
+            <a href="#clothing" class="btn-primary">Shop Now →</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1604664587350-2f7ab82d4c30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Malawian crafts">
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="categories">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="category-grid">
+            <div class="category-card" data-category="clothing">
+                <img src="https://images.unsplash.com/photo-1597047084897-51e81819a499?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Malawian clothing">
+                <h3>Chitenje & Clothing</h3>
+                <p>Traditional fabrics and modern wear</p>
+            </div>
+            <div class="category-card" data-category="crafts">
+                <img src="https://images.unsplash.com/photo-1605721912195-3aec5fbaf4d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Malawian crafts">
+                <h3>Handicrafts</h3>
+                <p>Wood carvings, baskets, and art</p>
+            </div>
+            <div class="category-card" data-category="kitchen">
+                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Malawian kitchenware">
+                <h3>Kitchen & Home</h3>
+                <p>Clay pots, plates, and utensils</p>
+            </div>
+            <div class="category-card" data-category="tools">
+                <img src="https://images.unsplash.com/photo-1586864387634-2f9f3c6c8a4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Malawian tools">
+                <h3>Traditional Tools</h3>
+                <p>Handmade tools and implements</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="clothing">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="clothing">Clothing</button>
+            <button class="filter-btn" data-filter="crafts">Crafts</button>
+            <button class="filter-btn" data-filter="kitchen">Kitchen</button>
+            <button class="filter-btn" data-filter="tools">Tools</button>
+        </div>
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be loaded here via JavaScript -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2 class="section-title">About MaNyasa Store</h2>
+            <p>MaNyasa Store was founded to bring the rich cultural heritage of Malawi to the world. We work directly with artisans and craftspeople across Malawi to bring you authentic, handmade treasures that tell a story.</p>
+            <p>From the vibrant chitenje fabrics to intricate wood carvings and traditional clay pots, each item in our store represents generations of craftsmanship and cultural significance.</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Artisans</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">1000+</span>
+                    <span class="stat-label">Products</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Malawian Districts</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="contact-container">
+            <form class="contact-form" id="contactForm">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit" class="btn-primary">Send Message</button>
+            </form>
+            <div class="contact-info">
+                <h3>Visit Our Store</h3>
+                <p>📍 123 Malawian Market, Johannesburg</p>
+                <p>📞 +27 11 234 5678</p>
+                <p>📧 info@manyasastore.co.za</p>
+                <div class="social-links">
+                    <a href="#">📘 Facebook</a>
+                    <a href="#">📷 Instagram</a>
+                    <a href="#">🐦 Twitter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Cart Modal -->
+<div class="modal" id="cartModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Your Cart</h2>
+        <div id="cartItems"></div>
+        <div class="cart-total">
+            <h3>Total: R<span id="cartTotal">0.00</span></h3>
+        </div>
+        <button class="btn-primary" id="checkoutBtn">Checkout</button>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>MaNyasa<span>Store</span></h3>
+            <p>Bringing Malawi's finest crafts to the world.</p>
+        </div>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#">Shipping Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Newsletter</h4>
+            <p>Subscribe for updates and special offers</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email">
+                <button type="submit">→</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 MaNyasa Store. All rights reserved. Proudly Malawian.</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
