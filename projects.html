@@ -9,25 +9,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        .project-grid {
+        .projects-header {
+            text-align: center;
+            margin: 4rem 0 2rem;
+        }
+
+        .projects-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
             margin: 4rem 0;
         }
 
-        .project-item {
+        .project-card {
+            background: white;
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
-            background: white;
-            border-radius: 8px;
             overflow: hidden;
         }
 
-        .project-item:hover {
-            transform: translateY(-5px);
+        .project-card:hover {
+            transform: translateY(-8px);
             border-color: var(--bold-red);
-            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px -10px rgba(229, 62, 62, 0.2);
         }
 
         .project-image {
@@ -36,9 +45,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 4rem;
             color: var(--bold-red);
-            position: relative;
             overflow: hidden;
         }
 
@@ -49,101 +57,59 @@
             transition: transform 0.5s ease;
         }
 
-        .project-item:hover .project-image img {
+        .project-card:hover .project-image img {
             transform: scale(1.05);
         }
 
         .project-content {
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .project-content h3 {
-            margin-bottom: 0.5rem;
-            color: var(--bold-red);
-            font-size: 1.3rem;
-        }
-
-        .project-date {
-            font-size: 0.9rem;
-            color: var(--text-light);
+            font-size: 1.5rem;
             margin-bottom: 0.75rem;
-            font-style: italic;
+            color: var(--text-dark);
         }
 
         .project-description {
             color: var(--text-light);
             line-height: 1.6;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
         }
 
-        .project-tags {
+        .tech-stack {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin: 1rem 0;
+            margin-bottom: 1.5rem;
         }
 
-        .project-tags span {
+        .tech-stack span {
             background: var(--light-bg);
             padding: 0.3rem 1rem;
             font-size: 0.8rem;
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .project-tags span:hover {
-            background: var(--bold-red);
-            color: white;
-            border-color: var(--bold-red);
+            font-weight: 500;
         }
 
         .project-links {
             display: flex;
-            gap: 1rem;
-            margin-top: 1.2rem;
+            gap: 1.5rem;
         }
 
-        .btn-small {
-            padding: 0.5rem 1.2rem;
-            background: transparent;
-            border: 1px solid var(--bold-red);
+        .project-link {
             color: var(--bold-red);
             text-decoration: none;
-            font-size: 0.9rem;
             font-weight: 500;
-            transition: all 0.3s ease;
-            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
         }
 
-        .btn-small:hover {
-            background: var(--bold-red);
-            color: white;
-        }
-
-        .btn-small.primary {
-            background: var(--bold-red);
-            color: white;
-        }
-
-        .btn-small.primary:hover {
-            background: var(--dark-red);
-            border-color: var(--dark-red);
-        }
-
-        @media (max-width: 768px) {
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .project-links {
-                flex-direction: column;
-            }
-
-            .btn-small {
-                text-align: center;
-            }
+        .project-link:hover {
+            gap: 0.6rem;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -153,114 +119,193 @@
         <div class="logo">THUTO SEROTO</div>
         <ul class="nav-links">
             <li><a href="index.html">HOME</a></li>
-            <li><a href="about.html">ABOUT</a></li>
             <li><a href="projects.html" class="active">PROJECTS</a></li>
             <li><a href="contact.html">CONTACT</a></li>
         </ul>
     </nav>
 
-    <div style="text-align: center; margin: 4rem 0;">
+    <div class="projects-header">
         <span class="greeting">MY WORK</span>
-        <h1>Building my <span style="color: var(--bold-red);">dream life</span><br>one project at a time</h1>
+        <h1>Projects that <span style="color: var(--bold-red);">demonstrate my skills</span></h1>
+        <p style="color: var(--text-light); max-width: 600px; margin: 1rem auto;">Each project showcases different technologies and problem-solving approaches.</p>
     </div>
 
-    <div class="project-grid">
-        <!-- Currency Calculator Project -->
-        <div class="project-item">
+    <div class="projects-grid">
+        <!-- 1. Currency Calculator -->
+        <div class="project-card">
             <div class="project-image">
-                <span>💱</span>
-                <!-- If you have a screenshot, replace with: -->
-                <!-- <img src="projects/currency-calculator/assets/thumbnail.jpg" alt="Currency Calculator"> -->
+                <img src="projects/currency-calculator/assets/thumbnail.jpg" alt="Currency Calculator Screenshot" onerror="this.style.display='none'; this.parentElement.innerHTML='<span>💱</span>';">
             </div>
             <div class="project-content">
                 <h3>Currency Calculator</h3>
-                <div class="project-date">Year: 2026</div>
                 <p class="project-description">
-                    Real-time currency converter supporting USD (US Dollar), ZAR (South African Rand), and BWP (Botswana Pula).
-                    Fetches live exchange rates via API and features a clean, responsive interface with swap functionality.
+                    A real-time currency converter that fetches live exchange rates via API. Supports USD, ZAR (South African Rand), and BWP (Botswana Pula). Features a clean, responsive interface with swap functionality.
                 </p>
-                <div class="project-tags">
+                <div class="tech-stack">
                     <span>HTML5</span>
                     <span>CSS3</span>
                     <span>JavaScript</span>
-                    <span>API</span>
-                    <span>Real-time</span>
+                    <span>REST API</span>
                 </div>
                 <div class="project-links">
-                    <a href="projects/currency-calculator/index.html" class="btn-small primary" target="_blank">Live Demo</a>
-                    <a href="https://github.com/thutoseroto/MyPortfolio/tree/main/projects/currency-calculator" class="btn-small" target="_blank">View Code</a>
+                    <a href="projects/currency-calculator/index.html" class="project-link" target="_blank">Live Demo →</a>
+                    <a href="https://github.com/thutoseroto/MyPortfolio/tree/master/projects/currency-calculator" class="project-link" target="_blank">View Code →</a>
                 </div>
             </div>
         </div>
 
-        <!-- Portfolio Website Project -->
-        <div class="project-item">
+        <!-- 2. Recipe Finder -->
+        <div class="project-card">
+            <div class="project-image">
+                <img src="projects/recipe-finder/assets/thumbnail.jpg" alt="Recipe Finder Screenshot" onerror="this.style.display='none'; this.parentElement.innerHTML='<span>🍳</span>';">
+            </div>
+            <div class="project-content">
+                <h3>Recipe Finder</h3>
+                <p class="project-description">
+                    Search for recipes by ingredients you have at home. Features traditional South African recipes including Umqombothi (traditional beer) and Chakalaka. Fetches recipes via Spoonacular API.
+                </p>
+                <div class="tech-stack">
+                    <span>HTML5</span>
+                    <span>CSS3</span>
+                    <span>JavaScript</span>
+                    <span>REST API</span>
+                </div>
+                <div class="project-links">
+                    <a href="projects/recipe-finder/index.html" class="project-link" target="_blank">Live Demo →</a>
+                    <a href="https://github.com/thutoseroto/MyPortfolio/tree/master/projects/recipe-finder" class="project-link" target="_blank">View Code →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Meme Generator -->
+        <div class="project-card">
+            <div class="project-image">
+                <img src="projects/meme-generator/assets/thumbnail.jpg" alt="Meme Generator Screenshot" onerror="this.style.display='none'; this.parentElement.innerHTML='<span>🎭</span>';">
+            </div>
+            <div class="project-content">
+                <h3>Meme Generator</h3>
+                <p class="project-description">
+                    Upload images and add custom text to create memes. Customize font, size, color, and stroke with live preview using Canvas API. Download your creations instantly.
+                </p>
+                <div class="tech-stack">
+                    <span>HTML5</span>
+                    <span>CSS3</span>
+                    <span>JavaScript</span>
+                    <span>Canvas API</span>
+                </div>
+                <div class="project-links">
+                    <a href="projects/meme-generator/index.html" class="project-link" target="_blank">Live Demo →</a>
+                    <a href="https://github.com/thutoseroto/MyPortfolio/tree/master/projects/meme-generator" class="project-link" target="_blank">View Code →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. MaNyasa Store (E-Commerce) -->
+        <div class="project-card">
+            <div class="project-image">
+                <img src="projects/manyasa-store/assets/thumbnail.jpg" alt="MaNyasa Store Screenshot" onerror="this.style.display='none'; this.parentElement.innerHTML='<span>🛍️</span>';">
+            </div>
+            <div class="project-content">
+                <h3>MaNyasa Store</h3>
+                <p class="project-description">
+                    E-commerce platform for Malawian clothing, crafts, kitchenware, and traditional tools. Features product filtering by category, shopping cart functionality, and cultural storytelling.
+                </p>
+                <div class="tech-stack">
+                    <span>HTML5</span>
+                    <span>CSS3</span>
+                    <span>JavaScript</span>
+                    <span>E-commerce</span>
+                </div>
+                <div class="project-links">
+                    <a href="projects/manyasa-store/index.html" class="project-link" target="_blank">Live Demo →</a>
+                    <a href="https://github.com/thutoseroto/MyPortfolio/tree/master/projects/manyasa-store" class="project-link" target="_blank">View Code →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. BuaFela Chat App -->
+        <div class="project-card">
+            <div class="project-image">
+                <img src="projects/buafela/assets/thumbnail.jpg" alt="BuaFela Chat Screenshot" onerror="this.style.display='none'; this.parentElement.innerHTML='<span>💬</span>';">
+            </div>
+            <div class="project-content">
+                <h3>BuaFela Chat</h3>
+                <p class="project-description">
+                    Real-time chat app supporting all 9 South African official languages. Features 100 daily message limit, language translation for common phrases, and works without data/airtime using localStorage.
+                </p>
+                <div class="tech-stack">
+                    <span>HTML5</span>
+                    <span>CSS3</span>
+                    <span>JavaScript</span>
+                    <span>LocalStorage</span>
+                </div>
+                <div class="project-links">
+                    <a href="projects/buafela/index.html" class="project-link" target="_blank">Live Demo →</a>
+                    <a href="https://github.com/thutoseroto/MyPortfolio/tree/master/projects/buafela" class="project-link" target="_blank">View Code →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Portfolio Website -->
+        <div class="project-card">
             <div class="project-image">
                 <span>💻</span>
             </div>
             <div class="project-content">
                 <h3>Portfolio Website</h3>
-                <div class="project-date">Year: 2026</div>
                 <p class="project-description">
-                    This very portfolio! Built with HTML, CSS, and JavaScript to showcase my journey, skills, and projects.
-                    Features responsive design, smooth animations, and a fully functional contact form.
+                    This very portfolio! Built from scratch to showcase my skills and projects. Features responsive design, smooth animations, and a contact form integrated with Formspree.
                 </p>
-                <div class="project-tags">
+                <div class="tech-stack">
                     <span>HTML5</span>
                     <span>CSS3</span>
                     <span>JavaScript</span>
-                    <span>Responsive</span>
                     <span>Formspree</span>
                 </div>
                 <div class="project-links">
-                    <a href="index.html" class="btn-small primary" target="_blank">Live Demo</a>
-                    <a href="https://github.com/thutoseroto/MyPortfolio" class="btn-small" target="_blank">View Code</a>
+                    <a href="index.html" class="project-link" target="_blank">Live Demo →</a>
+                    <a href="https://github.com/thutoseroto/MyPortfolio" class="project-link" target="_blank">View Code →</a>
                 </div>
             </div>
         </div>
 
-        <!-- First Major Project -->
-        <div class="project-item">
+        <!-- 7. Coming Soon / Next Project -->
+        <div class="project-card">
             <div class="project-image">
                 <span>🚀</span>
             </div>
             <div class="project-content">
-                <h3>First Major Project</h3>
-                <div class="project-date">Year: 2026</div>
+                <h3>Next Project</h3>
                 <p class="project-description">
-                    Currently, in progress at WeThinkCode. Building something meaningful that demonstrates my skills in
-                    full-stack development and software engineering principles.
+                    I'm currently working on my next project at WeThinkCode. It will demonstrate my skills in Java and database integration. Check back soon!
                 </p>
-                <div class="project-tags">
+                <div class="tech-stack">
                     <span>Java</span>
+                    <span>SQL</span>
                     <span>Coming Soon</span>
                 </div>
                 <div class="project-links">
-                    <a href="#" class="btn-small" style="opacity: 0.5; pointer-events: none;">In Progress</a>
+                    <span style="color: var(--text-light); opacity: 0.5;">In Progress</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- More Projects Coming Soon -->
-    <div style="text-align: center; margin: 3rem 0 4rem;">
-        <p style="color: var(--text-light); font-size: 1.1rem;">More exciting projects coming soon! 🚀</p>
-    </div>
-
-    <div class="quote-section">
-        <p class="big-quote">STAY FOCUSED · FOLLOW YOUR PLAN</p>
-        <p class="quote-author">Not your mood</p>
+    <!-- GitHub CTA -->
+    <div style="text-align: center; margin: 4rem 0;">
+        <p style="color: var(--text-light); margin-bottom: 1rem;">Want to see more?</p>
+        <a href="https://github.com/Thuto-Seroto" target="_blank" class="btn-primary">VISIT MY GITHUB</a>
     </div>
 </div>
 
 <footer class="footer">
     <div class="container">
         <div class="social-links">
-            <a href="https://github.com/Thuto-Seroto" target="_blank">GITHUB</a>
-            <a href="https://www.linkedin.com/in/thuto-seroto-a2a84a395" target="_blank">LINKEDIN</a>
-            <a href="mailto:thutoseroto@gmail.com">EMAIL</a>
+            <a href="https://github.com/Thuto-Seroto" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/thuto-seroto-a2a84a395" target="_blank">LinkedIn</a>
+            <a href="mailto:thutoseroto@gmail.com">thutoseroto@gmail.com</a>
         </div>
-        <p>© 2026 THUTO SEROTO · FUTURE CEO · PROBLEM SOLVER</p>
+        <p>© 2026 Thuto Seroto · Junior Software Developer</p>
     </div>
 </footer>
 </body>
