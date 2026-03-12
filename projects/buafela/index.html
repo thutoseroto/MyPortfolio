@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Add PWA support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#e53e3e">
 </head>
 <body>
 <div class="app-container">
@@ -17,87 +20,66 @@
             <h1>BuaFela<span class="beta">BETA</span></h1>
             <p class="subtitle">Chat in any of South Africa's 9 official languages • <span class="message-count" id="messageCount">100</span> messages left today</p>
         </div>
-        <div class="language-selector">
-            <label for="language">🌍 Select your language:</label>
-            <select id="language">
-                <option value="english">🇬🇧 English</option>
-                <option value="zulu">🇿🇦 isiZulu</option>
-                <option value="xhosa">🇿🇦 isiXhosa</option>
-                <option value="afrikaans">🇿🇦 Afrikaans</option>
-                <option value="sepedi">🇿🇦 Sepedi</option>
-                <option value="setswana">🇿🇦 Setswana</option>
-                <option value="sesotho">🇿🇦 Sesotho</option>
-                <option value="tsonga">🇿🇦 Xitsonga</option>
-                <option value="swati">🇿🇦 siSwati</option>
-                <option value="venda">🇿🇦 Tshivenda</option>
-                <option value="ndebele">🇿🇦 isiNdebele</option>
-            </select>
+        <div class="header-actions">
+            <button class="icon-btn" id="addContactBtn" title="Add Contact">➕</button>
+            <button class="icon-btn" id="contactsBtn" title="Contacts">👥</button>
+            <div class="language-selector">
+                <select id="language">
+                    <option value="english">🇬🇧 English</option>
+                    <option value="zulu">🇿🇦 isiZulu</option>
+                    <option value="xhosa">🇿🇦 isiXhosa</option>
+                    <option value="afrikaans">🇿🇦 Afrikaans</option>
+                    <option value="sepedi">🇿🇦 Sepedi</option>
+                    <option value="setswana">🇿🇦 Setswana</option>
+                    <option value="sesotho">🇿🇦 Sesotho</option>
+                    <option value="tsonga">🇿🇦 Xitsonga</option>
+                    <option value="swati">🇿🇦 siSwati</option>
+                    <option value="venda">🇿🇦 Tshivenda</option>
+                    <option value="ndebele">🇿🇦 isiNdebele</option>
+                </select>
+            </div>
         </div>
     </header>
 
-    <!-- Main Chat Area -->
+    <!-- Main Content -->
     <div class="main-content">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="user-profile">
-                <div class="avatar" id="userAvatar">🇿🇦</div>
-                <div class="user-info">
-                    <h3 id="userName">Mzansi User</h3>
-                    <p id="userLanguage">Speaking: English</p>
-                </div>
+        <!-- Contacts Sidebar -->
+        <div class="contacts-sidebar" id="contactsSidebar">
+            <div class="sidebar-header">
+                <h3>Contacts</h3>
+                <button class="close-sidebar" id="closeContacts">&times;</button>
             </div>
-
-            <div class="chat-rooms">
-                <h4>Chat Rooms</h4>
-                <div class="room-list">
-                    <div class="room active" data-room="general">
-                        <span class="room-icon">💬</span>
-                        <span class="room-name">General Chat</span>
-                        <span class="room-count" id="generalCount">0</span>
-                    </div>
-                    <div class="room" data-room="culture">
-                        <span class="room-icon">🌍</span>
-                        <span class="room-name">Culture & Heritage</span>
-                        <span class="room-count" id="cultureCount">0</span>
-                    </div>
-                    <div class="room" data-room="help">
-                        <span class="room-icon">❓</span>
-                        <span class="room-name">Help & Support</span>
-                        <span class="room-count" id="helpCount">0</span>
-                    </div>
-                    <div class="room" data-room="language">
-                        <span class="room-icon">🗣️</span>
-                        <span class="room-name">Language Learning</span>
-                        <span class="room-count" id="languageCount">0</span>
-                    </div>
-                </div>
+            <div class="contact-list" id="contactList">
+                <!-- Contacts will be loaded here -->
             </div>
-
-            <div class="daily-limit">
-                <div class="limit-progress">
-                    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
-                </div>
-                <p><span id="usedMessages">0</span>/100 messages used today</p>
-                <p class="reset-time">Resets at midnight</p>
+            <div class="add-contact-form" id="addContactForm">
+                <input type="text" id="newContactName" placeholder="Contact name" maxlength="30">
+                <input type="tel" id="newContactPhone" placeholder="Phone number">
+                <button id="saveContactBtn">Save Contact</button>
             </div>
-
-            <button class="reset-btn" id="resetMessages">↻ Reset Demo</button>
         </div>
 
         <!-- Chat Area -->
         <div class="chat-area">
-            <div class="chat-header">
-                <h2 id="currentRoom">General Chat</h2>
-                <div class="room-info">
-                    <span id="roomParticipants">12 online</span>
+            <div class="chat-header" id="chatHeader">
+                <div class="chat-header-info">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                    <h2 id="currentChatName">Select a contact</h2>
                 </div>
+                <div class="chat-header-status" id="chatStatus"></div>
             </div>
 
             <div class="messages-container" id="messagesContainer">
                 <!-- Messages will be loaded here -->
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-icon">💬</div>
+                    <h3>Welcome to BuaFela!</h3>
+                    <p>Select a contact to start chatting or add a new contact to begin.</p>
+                    <button class="btn-primary" id="welcomeAddContact">Add Contact</button>
+                </div>
             </div>
 
-            <div class="message-input-container">
+            <div class="message-input-container" id="messageInputContainer" style="display: none;">
                 <div class="input-wrapper">
                         <textarea
                                 id="messageInput"
@@ -118,55 +100,57 @@
         </div>
     </div>
 
-    <!-- Welcome Modal -->
-    <div class="modal" id="welcomeModal">
+    <!-- Add Contact Modal -->
+    <div class="modal" id="contactModal">
         <div class="modal-content">
-            <h2>✧ Welcome to BuaFela ✧</h2>
-            <p class="modal-subtitle">Chat in any of South Africa's 9 official languages</p>
-
-            <div class="language-showcase">
-                <div class="language-item">
-                    <span class="lang-flag">🇬🇧</span>
-                    <span class="lang-name">English</span>
-                    <span class="lang-hello">Hello</span>
+            <span class="close">&times;</span>
+            <h2>Add New Contact</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="contactName">Name</label>
+                    <input type="text" id="contactName" required maxlength="30" placeholder="e.g., Thabo Mokoena">
                 </div>
-                <div class="language-item">
-                    <span class="lang-flag">🇿🇦</span>
-                    <span class="lang-name">isiZulu</span>
-                    <span class="lang-hello">Sawubona</span>
+                <div class="form-group">
+                    <label for="contactPhone">Phone Number</label>
+                    <input type="tel" id="contactPhone" required placeholder="e.g., 0812345678">
+                    <small>South African number without +27</small>
                 </div>
-                <div class="language-item">
-                    <span class="lang-flag">🇿🇦</span>
-                    <span class="lang-name">isiXhosa</span>
-                    <span class="lang-hello">Molo</span>
+                <div class="form-group">
+                    <label for="contactLanguage">Preferred Language</label>
+                    <select id="contactLanguage">
+                        <option value="english">English</option>
+                        <option value="zulu">isiZulu</option>
+                        <option value="xhosa">isiXhosa</option>
+                        <option value="afrikaans">Afrikaans</option>
+                        <option value="sepedi">Sepedi</option>
+                        <option value="setswana">Setswana</option>
+                        <option value="sesotho">Sesotho</option>
+                        <option value="tsonga">Xitsonga</option>
+                        <option value="swati">siSwati</option>
+                        <option value="venda">Tshivenda</option>
+                        <option value="ndebele">isiNdebele</option>
+                    </select>
                 </div>
-                <div class="language-item">
-                    <span class="lang-flag">🇿🇦</span>
-                    <span class="lang-name">Afrikaans</span>
-                    <span class="lang-hello">Hallo</span>
-                </div>
-                <div class="language-item">
-                    <span class="lang-flag">🇿🇦</span>
-                    <span class="lang-name">Sepedi</span>
-                    <span class="lang-hello">Thobela</span>
-                </div>
-                <div class="language-item">
-                    <span class="lang-flag">🇿🇦</span>
-                    <span class="lang-name">Setswana</span>
-                    <span class="lang-hello">Dumela</span>
-                </div>
-            </div>
-
-            <div class="modal-info">
-                <p>✨ <strong>100 messages free every day</strong> ✨</p>
-                <p>No data? No problem! BuaFela works on any network, anywhere in SA.</p>
-            </div>
-
-            <button class="btn-primary" id="startChatting">Start Chatting →</button>
+                <button type="submit" class="btn-primary">Add Contact</button>
+            </form>
         </div>
     </div>
 
-    <!-- Language Quick Reference -->
+    <!-- Share Contact Modal -->
+    <div class="modal" id="shareModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Share BuaFela</h2>
+            <p>Share this link with friends so they can join you:</p>
+            <div class="share-link">
+                <input type="text" id="shareLink" readonly value="https://thutoseroto.github.io/MyPortfolio/projects/buafela/">
+                <button id="copyLinkBtn">Copy</button>
+            </div>
+            <p class="share-info">They can add your number as a contact to start chatting!</p>
+        </div>
+    </div>
+
+    <!-- Quick Reference -->
     <div class="quick-reference" id="quickRef">
         <button class="ref-toggle" id="toggleRef">📚 Quick Phrases</button>
         <div class="ref-content hidden">

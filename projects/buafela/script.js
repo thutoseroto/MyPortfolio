@@ -1,550 +1,292 @@
-// Language translations for common phrases
-const translations = {
-    english: {
-        hello: "Hello",
-        howAreYou: "How are you?",
-        thankYou: "Thank you",
-        welcome: "Welcome",
-        goodMorning: "Good morning",
-        goodAfternoon: "Good afternoon",
-        goodEvening: "Good evening",
-        goodbye: "Goodbye",
-        seeYouLater: "See you later",
-        yes: "Yes",
-        no: "No",
-        please: "Please",
-        sorry: "Sorry",
-        help: "Help",
-        water: "Water",
-        food: "Food",
-        friend: "Friend",
-        love: "Love",
-        peace: "Peace"
-    },
-    zulu: {
-        hello: "Sawubona",
-        howAreYou: "Unjani?",
-        thankYou: "Ngiyabonga",
-        welcome: "Siyakwamukela",
-        goodMorning: "Sawubona ekuseni",
-        goodAfternoon: "Sawubona ntambama",
-        goodEvening: "Sawubona kusihlwa",
-        goodbye: "Hamba kahle",
-        seeYouLater: "Sizobonana",
-        yes: "Yebo",
-        no: "Cha",
-        please: "Ngiyacela",
-        sorry: "Ngiyaxolisa",
-        help: "Usizo",
-        water: "Amanzi",
-        food: "Ukudla",
-        friend: "Umngani",
-        love: "Uthando",
-        peace: "Ukuthula"
-    },
-    xhosa: {
-        hello: "Molo",
-        howAreYou: "Unjani?",
-        thankYou: "Enkosi",
-        welcome: "Wamkelekile",
-        goodMorning: "Molo ekuseni",
-        goodAfternoon: "Molo emvakwemini",
-        goodEvening: "Molo ngokuhlwa",
-        goodbye: "Hamba kakuhle",
-        seeYouLater: "Sizakubona",
-        yes: "Ewe",
-        no: "Hayi",
-        please: "Nceda",
-        sorry: "Uxolo",
-        help: "Uncedo",
-        water: "Amanzi",
-        food: "Ukutya",
-        friend: "Umhlobo",
-        love: "Uthando",
-        peace: "Uxolo"
-    },
-    afrikaans: {
-        hello: "Hallo",
-        howAreYou: "Hoe gaan dit?",
-        thankYou: "Dankie",
-        welcome: "Welkom",
-        goodMorning: "Goeie môre",
-        goodAfternoon: "Goeie middag",
-        goodEvening: "Goeie aand",
-        goodbye: "Totsiens",
-        seeYouLater: "Sien jou later",
-        yes: "Ja",
-        no: "Nee",
-        please: "Asseblief",
-        sorry: "Jammer",
-        help: "Hulp",
-        water: "Water",
-        food: "Kos",
-        friend: "Vriend",
-        love: "Liefde",
-        peace: "Vrede"
-    },
-    sepedi: {
-        hello: "Thobela",
-        howAreYou: "O kae?",
-        thankYou: "Ke a leboha",
-        welcome: "O amogetšwe",
-        goodMorning: "Thobela mesong",
-        goodAfternoon: "Thobela mosegare",
-        goodEvening: "Thobela mantšiboa",
-        goodbye: "Šala gabotse",
-        seeYouLater: "Tla go bona",
-        yes: "Ee",
-        no: "Aowa",
-        please: "Hle",
-        sorry: "Ke maswabi",
-        help: "Thušo",
-        water: "Meetse",
-        food: "Dijo",
-        friend: "Mogwera",
-        love: "Lerato",
-        peace: "Khutšo"
-    },
-    setswana: {
-        hello: "Dumela",
-        howAreYou: "Le kae?",
-        thankYou: "Ke a leboga",
-        welcome: "O amogetswe",
-        goodMorning: "Dumela moso",
-        goodAfternoon: "Dumela thapama",
-        goodEvening: "Dumela mauabosa",
-        goodbye: "Tsamaya sentle",
-        seeYouLater: "Tla go bona",
-        yes: "Ee",
-        no: "Nnyaa",
-        please: "Tsweetswee",
-        sorry: "Ke maswabi",
-        help: "Thuso",
-        water: "Metsi",
-        food: "Dijo",
-        friend: "Tsala",
-        love: "Lerato",
-        peace: "Kgotso"
-    },
-    sesotho: {
-        hello: "Dumela",
-        howAreYou: "O kae?",
-        thankYou: "Ke a leboha",
-        welcome: "O amohelehile",
-        goodMorning: "Dumela hoseng",
-        goodAfternoon: "Dumela motšehare",
-        goodEvening: "Dumela mantsiboa",
-        goodbye: "Sala hantle",
-        seeYouLater: "Ke tla o bona",
-        yes: "Ee",
-        no: "Tjhe",
-        please: "Ka kopo",
-        sorry: "Ntshwarele",
-        help: "Thuso",
-        water: "Metsi",
-        food: "Lijo",
-        friend: "Motsoalle",
-        love: "Lerato",
-        peace: "Khotso"
-    },
-    tsonga: {
-        hello: "Avuxeni",
-        howAreYou: "Kunjhani?",
-        thankYou: "Inkomu",
-        welcome: "Amukela",
-        goodMorning: "Avuxeni mixo",
-        goodAfternoon: "Avuxeni nhlikanhi",
-        goodEvening: "Avuxeni riguru",
-        goodbye: "Sala kahle",
-        seeYouLater: "Hi ta vona",
-        yes: "Ina",
-        no: "E-e",
-        please: "Hleketa",
-        sorry: "Ndza khoma",
-        help: "Pfuneko",
-        water: "Matimba",
-        food: "Swiya",
-        friend: "Munghana",
-        love: "Rirhandzu",
-        peace: "Kutsula"
-    },
-    swati: {
-        hello: "Sawubona",
-        howAreYou: "Unjani?",
-        thankYou: "Ngiyabonga",
-        welcome: "Wemukelekile",
-        goodMorning: "Sawubona ekuseni",
-        goodAfternoon: "Sawubona emini",
-        goodEvening: "Sawubona kusihlwa",
-        goodbye: "Hamba kahle",
-        seeYouLater: "Sizobonana",
-        yes: "Yebo",
-        no: "Cha",
-        please: "Ngiyacela",
-        sorry: "Ngiyaxolisa",
-        help: "Lusito",
-        water: "Emanti",
-        food: "Kudla",
-        friend: "Mngani",
-        love: "Lutsandvo",
-        peace: "Kuthula"
-    },
-    venda: {
-        hello: "Ndaa",
-        howAreYou: "Vho kona hani?",
-        thankYou: "Ndi a livhuwa",
-        welcome: "Vho tanganedzwa",
-        goodMorning: "Ndaa matsheloni",
-        goodAfternoon: "Ndaa masikati",
-        goodEvening: "Ndaa madekwana",
-        goodbye: "Kha vha sale",
-        seeYouLater: "Ri do vhona",
-        yes: "Ee",
-        no: "Hai",
-        please: "Ndi khou humbela",
-        sorry: "Ndi khou humbela pfarelo",
-        help: "Thuso",
-        water: "Madi",
-        food: "Zwiḽiwa",
-        friend: "Khonani",
-        love: "Lufuno",
-        peace: "Mulalo"
-    },
-    ndebele: {
-        hello: "Lotjhani",
-        howAreYou: "Linjani?",
-        thankYou: "Ngiyathokoza",
-        welcome: "Wamukelekile",
-        goodMorning: "Lotjhani ekuseni",
-        goodAfternoon: "Lotjhani ntambama",
-        goodEvening: "Lotjhani kusihlwa",
-        goodbye: "Hamba khuhle",
-        seeYouLater: "Sizakubona",
-        yes: "Yebo",
-        no: "Hatshi",
-        please: "Ngiyacela",
-        sorry: "Ngiyaxolisa",
-        help: "Usizo",
-        water: "Amazi",
-        food: "Ukudla",
-        friend: "Umngane",
-        love: "Uthando",
-        peace: "Ukuthula"
-    }
-};
+// ========================================
+// BUAFELA CHAT APP - COMPLETE WORKING VERSION
+// ========================================
 
-// Message limit
-const DAILY_LIMIT = 100;
+// Wait for everything to load
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('BuaFela starting...');
+    initializeApp();
+});
 
-// State
-let currentLanguage = 'english';
-let currentRoom = 'general';
-let messages = {
-    general: [],
-    culture: [],
-    help: [],
-    language: []
-};
-let messageCount = parseInt(localStorage.getItem('buafela_count') || '0');
-let lastReset = localStorage.getItem('buafela_reset') || Date.now();
-let currentUser = {
-    name: 'Mzansi User',
-    avatar: '🇿🇦'
-};
+function initializeApp() {
+    // Get all elements
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const messageInputContainer = document.getElementById('messageInputContainer');
+    const contactModal = document.getElementById('contactModal');
+    const shareModal = document.getElementById('shareModal');
+    const addContactBtn = document.getElementById('addContactBtn');
+    const contactsBtn = document.getElementById('contactsBtn');
+    const welcomeAddContact = document.getElementById('welcomeAddContact');
+    const closeButtons = document.querySelectorAll('.modal .close');
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
+    const shareLink = document.getElementById('shareLink');
+    const contactForm = document.getElementById('contactForm');
+    const contactsSidebar = document.getElementById('contactsSidebar');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeContacts = document.getElementById('closeContacts');
 
-// DOM Elements
-const languageSelect = document.getElementById('language');
-const messageInput = document.getElementById('messageInput');
-const sendBtn = document.getElementById('sendBtn');
-const messagesContainer = document.getElementById('messagesContainer');
-const messageCountEl = document.getElementById('messageCount');
-const usedMessagesEl = document.getElementById('usedMessages');
-const progressBar = document.getElementById('progressBar');
-const charCount = document.getElementById('charCount');
-const messageLimitWarning = document.getElementById('messageLimitWarning');
-const currentRoomEl = document.getElementById('currentRoom');
-const roomParticipants = document.getElementById('roomParticipants');
-const userLanguageEl = document.getElementById('userLanguage');
-const resetBtn = document.getElementById('resetMessages');
-const welcomeModal = document.getElementById('welcomeModal');
-const startChatting = document.getElementById('startChatting');
-const toggleRef = document.getElementById('toggleRef');
-const phrasesGrid = document.getElementById('phrasesGrid');
-const roomElements = document.querySelectorAll('.room');
-
-// Check and reset daily limit
-function checkDailyLimit() {
-    const now = Date.now();
-    const oneDay = 24 * 60 * 60 * 1000;
-
-    if (now - parseInt(lastReset) > oneDay) {
-        messageCount = 0;
-        lastReset = now;
-        localStorage.setItem('buafela_reset', lastReset);
-        localStorage.setItem('buafela_count', messageCount);
+    // Set share link value
+    if (shareLink) {
+        shareLink.value = window.location.href;
     }
 
-    updateMessageCount();
+    // Load contacts
+    loadAndDisplayContacts();
+
+    // ========================================
+    // BUTTON HANDLERS
+    // ========================================
+
+    // Add Contact button (header)
+    if (addContactBtn) {
+        addContactBtn.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (contactModal) {
+                contactModal.style.display = 'flex';
+                contactModal.classList.add('show');
+            }
+        };
+    }
+
+    // Add Contact button (welcome screen)
+    if (welcomeAddContact) {
+        welcomeAddContact.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (contactModal) {
+                contactModal.style.display = 'flex';
+                contactModal.classList.add('show');
+            }
+        };
+    }
+
+    // Contacts button
+    if (contactsBtn) {
+        contactsBtn.onclick = function(e) {
+            e.preventDefault();
+            if (contactsSidebar) {
+                contactsSidebar.classList.add('mobile-show');
+            }
+        };
+    }
+
+    // Mobile menu button
+    if (mobileMenuBtn) {
+        mobileMenuBtn.onclick = function(e) {
+            e.preventDefault();
+            if (contactsSidebar) {
+                contactsSidebar.classList.add('mobile-show');
+            }
+        };
+    }
+
+    // Close contacts sidebar
+    if (closeContacts) {
+        closeContacts.onclick = function(e) {
+            e.preventDefault();
+            if (contactsSidebar) {
+                contactsSidebar.classList.remove('mobile-show');
+            }
+        };
+    }
+
+    // ========================================
+    // MODAL CLOSE HANDLERS
+    // ========================================
+
+    // Close buttons
+    closeButtons.forEach(btn => {
+        btn.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const modal = this.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.remove('show');
+            }
+        };
+    });
+
+    // Close when clicking outside modal
+    window.onclick = function(e) {
+        if (e.target.classList.contains('modal')) {
+            e.target.style.display = 'none';
+            e.target.classList.remove('show');
+        }
+    };
+
+    // ========================================
+    // COPY LINK HANDLER
+    // ========================================
+
+    if (copyLinkBtn && shareLink) {
+        copyLinkBtn.onclick = function(e) {
+            e.preventDefault();
+            shareLink.select();
+            navigator.clipboard.writeText(shareLink.value).then(() => {
+                alert('Link copied to clipboard!');
+            }).catch(() => {
+                alert('Failed to copy link');
+            });
+        };
+    }
+
+    // ========================================
+    // CONTACT FORM HANDLER
+    // ========================================
+
+    if (contactForm) {
+        contactForm.onsubmit = function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('contactName')?.value;
+            const phone = document.getElementById('contactPhone')?.value;
+            const language = document.getElementById('contactLanguage')?.value;
+
+            if (name && phone) {
+                addNewContact(name, phone, language);
+                contactForm.reset();
+                if (contactModal) {
+                    contactModal.style.display = 'none';
+                    contactModal.classList.remove('show');
+                }
+                alert(`Contact ${name} added successfully!`);
+            }
+        };
+    }
+
+    // ========================================
+    // DEMO CONTACTS
+    // ========================================
+
+    // Add demo contacts if none exist
+    function addDemoContacts() {
+        const contacts = getContacts();
+        if (contacts.length === 0) {
+            const demos = [
+                { name: 'Thabo Mokoena', phone: '0812345678', language: 'zulu' },
+                { name: 'Maria Ndlovu', phone: '0823456789', language: 'xhosa' },
+                { name: 'Johan van der Merwe', phone: '0834567890', language: 'afrikaans' }
+            ];
+
+            demos.forEach(demo => addNewContact(demo.name, demo.phone, demo.language));
+        }
+    }
+
+    addDemoContacts();
 }
 
-// Update message count display
-function updateMessageCount() {
-    const remaining = DAILY_LIMIT - messageCount;
-    messageCountEl.textContent = remaining;
-    usedMessagesEl.textContent = messageCount;
-    progressBar.style.width = `${(messageCount / DAILY_LIMIT) * 100}%`;
+// ========================================
+// CONTACT FUNCTIONS
+// ========================================
 
-    if (messageCount >= DAILY_LIMIT) {
-        messageInput.disabled = true;
-        sendBtn.disabled = true;
-        messageLimitWarning.classList.remove('hidden');
-    } else {
-        messageInput.disabled = false;
-        sendBtn.disabled = false;
-        messageLimitWarning.classList.add('hidden');
-    }
+function getContacts() {
+    const saved = localStorage.getItem('buafela_contacts');
+    return saved ? JSON.parse(saved) : [];
 }
 
-// Add a message
-function addMessage(text, room = currentRoom, language = currentLanguage) {
-    if (messageCount >= DAILY_LIMIT) {
-        showNotification('Daily message limit reached!', 'error');
-        return false;
+function saveContacts(contacts) {
+    localStorage.setItem('buafela_contacts', JSON.stringify(contacts));
+}
+
+function addNewContact(name, phone, language = 'english') {
+    // Format phone
+    phone = phone.replace(/\s/g, '');
+    if (!phone.startsWith('0')) {
+        phone = '0' + phone;
     }
 
-    const message = {
-        id: Date.now(),
-        author: currentUser.name,
-        avatar: currentUser.avatar,
-        text: text,
+    const contact = {
+        id: Date.now().toString(),
+        name: name,
+        phone: phone,
         language: language,
-        time: new Date().toLocaleTimeString(),
-        own: true
+        online: Math.random() > 0.5,
+        avatar: '🇿🇦'
     };
 
-    messages[room].push(message);
-    messageCount++;
-    localStorage.setItem('buafela_count', messageCount);
-
-    updateMessageCount();
-    displayMessages(room);
-    updateRoomCount(room);
-
-    // Simulate reply after 1-3 seconds
-    setTimeout(() => simulateReply(room), 1000 + Math.random() * 2000);
-
-    return true;
+    const contacts = getContacts();
+    contacts.push(contact);
+    saveContacts(contacts);
+    displayContacts(contacts);
 }
 
-// Simulate reply
-function simulateReply(room) {
-    if (messageCount >= DAILY_LIMIT) return;
+function displayContacts(contacts) {
+    const contactList = document.getElementById('contactList');
+    if (!contactList) return;
 
-    const languages = Object.keys(translations);
-    const randomLang = languages[Math.floor(Math.random() * languages.length)];
-    const replies = [
-        translations[randomLang].hello,
-        translations[randomLang].howAreYou,
-        translations[randomLang].thankYou,
-        "👍",
-        "🇿🇦"
-    ];
+    if (contacts.length === 0) {
+        contactList.innerHTML = '<div class="empty-state"><p>No contacts yet</p><small>Click + to add contacts</small></div>';
+        return;
+    }
 
-    const reply = {
-        id: Date.now(),
-        author: `User_${Math.floor(Math.random() * 1000)}`,
-        avatar: '🇿🇦',
-        text: replies[Math.floor(Math.random() * replies.length)],
-        language: randomLang,
-        time: new Date().toLocaleTimeString(),
-        own: false
-    };
-
-    messages[room].push(reply);
-    messageCount++;
-    localStorage.setItem('buafela_count', messageCount);
-
-    updateMessageCount();
-    displayMessages(room);
-    updateRoomCount(room);
-}
-
-// Display messages for a room
-function displayMessages(room) {
-    const roomMessages = messages[room] || [];
-
-    messagesContainer.innerHTML = roomMessages.map(msg => `
-        <div class="message ${msg.own ? 'own' : ''}">
-            <div class="message-avatar">${msg.avatar}</div>
-            <div class="message-content">
-                <div class="message-header">
-                    <span class="message-author">${msg.author}</span>
-                    <span class="message-time">${msg.time}</span>
+    contactList.innerHTML = contacts.map(contact => `
+        <div class="contact-item" onclick="selectContact('${contact.id}')">
+            <div class="contact-avatar">
+                🇿🇦
+                <span class="contact-status ${contact.online ? 'online' : ''}"></span>
+            </div>
+            <div class="contact-info">
+                <div class="contact-name">
+                    <span>${contact.name}</span>
+                    <span class="contact-language">${getLanguageName(contact.language)}</span>
                 </div>
-                <div class="message-text">${msg.text}</div>
-                <span class="message-language">${msg.language}</span>
+                <div class="contact-phone">${formatPhone(contact.phone)}</div>
             </div>
         </div>
     `).join('');
-
-    // Scroll to bottom
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-// Update room count
-function updateRoomCount(room) {
-    const count = messages[room]?.length || 0;
-    document.getElementById(`${room}Count`).textContent = count;
+function loadAndDisplayContacts() {
+    const contacts = getContacts();
+    displayContacts(contacts);
 }
 
-// Show notification
-function showNotification(message, type = 'success') {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${type === 'success' ? 'var(--saffron)' : 'var(--error)'};
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 8px;
-        z-index: 1000;
-        animation: slideIn 0.3s ease;
-    `;
-    document.body.appendChild(notification);
+// Make selectContact globally available
+window.selectContact = function(contactId) {
+    const contacts = getContacts();
+    const contact = contacts.find(c => c.id === contactId);
+    if (!contact) return;
 
-    setTimeout(() => notification.remove(), 3000);
-}
+    // Update UI
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const messageInputContainer = document.getElementById('messageInputContainer');
+    const currentChatName = document.getElementById('currentChatName');
+    const chatStatus = document.getElementById('chatStatus');
 
-// Load common phrases
-function loadPhrases() {
-    const phrases = [
-        { phrase: translations[currentLanguage].hello, translation: 'Hello' },
-        { phrase: translations[currentLanguage].howAreYou, translation: 'How are you?' },
-        { phrase: translations[currentLanguage].thankYou, translation: 'Thank you' },
-        { phrase: translations[currentLanguage].goodbye, translation: 'Goodbye' },
-        { phrase: translations[currentLanguage].yes, translation: 'Yes' },
-        { phrase: translations[currentLanguage].no, translation: 'No' },
-        { phrase: translations[currentLanguage].please, translation: 'Please' },
-        { phrase: translations[currentLanguage].sorry, translation: 'Sorry' }
-    ];
+    if (welcomeScreen) welcomeScreen.style.display = 'none';
+    if (messageInputContainer) messageInputContainer.style.display = 'flex';
+    if (currentChatName) currentChatName.textContent = contact.name;
+    if (chatStatus) chatStatus.textContent = contact.online ? '🟢 Online' : '⚪ Offline';
 
-    phrasesGrid.innerHTML = phrases.map(p => `
-        <div class="phrase-item" onclick="usePhrase('${p.phrase}')">
-            <strong>${p.phrase}</strong>
-            <small>${p.translation}</small>
-        </div>
-    `).join('');
-}
+    // Highlight active contact
+    document.querySelectorAll('.contact-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
 
-// Use a phrase
-window.usePhrase = function(phrase) {
-    messageInput.value = phrase;
-    messageInput.focus();
-    checkInput();
+    // Close sidebar on mobile
+    const sidebar = document.getElementById('contactsSidebar');
+    if (sidebar && window.innerWidth <= 768) {
+        sidebar.classList.remove('mobile-show');
+    }
 };
 
-// Check input and update send button
-function checkInput() {
-    const text = messageInput.value.trim();
-    const length = text.length;
-
-    charCount.textContent = `${length}/500`;
-
-    if (length > 0 && messageCount < DAILY_LIMIT) {
-        sendBtn.disabled = false;
-    } else {
-        sendBtn.disabled = true;
-    }
+// Helper functions
+function getLanguageName(code) {
+    const names = {
+        english: 'English', zulu: 'isiZulu', xhosa: 'isiXhosa',
+        afrikaans: 'Afrikaans', sepedi: 'Sepedi', setswana: 'Setswana',
+        sesotho: 'Sesotho', tsonga: 'Xitsonga', swati: 'siSwati',
+        venda: 'Tshivenda', ndebele: 'isiNdebele'
+    };
+    return names[code] || code;
 }
 
-// Event Listeners
-languageSelect.addEventListener('change', (e) => {
-    currentLanguage = e.target.value;
-    userLanguageEl.textContent = `Speaking: ${e.target.options[e.target.selectedIndex].text.split(' ')[1]}`;
-    loadPhrases();
-});
-
-sendBtn.addEventListener('click', () => {
-    const text = messageInput.value.trim();
-    if (text && messageCount < DAILY_LIMIT) {
-        addMessage(text);
-        messageInput.value = '';
-        checkInput();
+function formatPhone(phone) {
+    if (phone.length === 10) {
+        return `${phone.slice(0,3)} ${phone.slice(3,6)} ${phone.slice(6)}`;
     }
-});
-
-messageInput.addEventListener('input', checkInput);
-
-messageInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendBtn.click();
-    }
-});
-
-roomElements.forEach(room => {
-    room.addEventListener('click', () => {
-        roomElements.forEach(r => r.classList.remove('active'));
-        room.classList.add('active');
-        currentRoom = room.dataset.room;
-        currentRoomEl.textContent = room.querySelector('.room-name').textContent;
-        displayMessages(currentRoom);
-        roomParticipants.textContent = `${Math.floor(Math.random() * 20) + 5} online`;
-    });
-});
-
-resetBtn.addEventListener('click', () => {
-    messageCount = 0;
-    localStorage.setItem('buafela_count', messageCount);
-    updateMessageCount();
-    showNotification('Message count reset for demo!');
-});
-
-startChatting.addEventListener('click', () => {
-    welcomeModal.classList.add('hidden');
-});
-
-toggleRef.addEventListener('click', () => {
-    document.querySelector('.ref-content').classList.toggle('hidden');
-});
-
-// Initialize
-checkDailyLimit();
-loadPhrases();
-
-// Add some demo messages
-messages.general = [
-    {
-        id: 1,
-        author: 'System',
-        avatar: '🤖',
-        text: 'Welcome to BuaFela! Chat in any of South Africa\'s 9 languages.',
-        language: 'english',
-        time: new Date().toLocaleTimeString(),
-        own: false
-    },
-    {
-        id: 2,
-        author: 'Thabo',
-        avatar: '🇿🇦',
-        text: 'Sawubona nonke!',
-        language: 'zulu',
-        time: new Date().toLocaleTimeString(),
-        own: false
-    },
-    {
-        id: 3,
-        author: 'Maria',
-        avatar: '🇿🇦',
-        text: 'Molo! Ndiyavuya ukunidibana.',
-        language: 'xhosa',
-        time: new Date().toLocaleTimeString(),
-        own: false
-    }
-];
-
-displayMessages('general');
-updateRoomCount('general');
+    return phone;
+}

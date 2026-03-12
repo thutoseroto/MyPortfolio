@@ -1,0 +1,695 @@
+\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Language translations (keep your existing translations object)
+const translations = {
+    // ... (keep all your existing translations here)
+    english: {
+        hello: "Hello",
+        howAreYou: "How are you?",
+        thankYou: "Thank you",
+        welcome: "Welcome",
+        goodMorning: "Good morning",
+        goodAfternoon: "Good afternoon",
+        goodEvening: "Good evening",
+        goodbye: "Goodbye",
+        seeYouLater: "See you later",
+        yes: "Yes",
+        no: "No",
+        please: "Please",
+        sorry: "Sorry",
+        help: "Help",
+        water: "Water",
+        food: "Food",
+        friend: "Friend",
+        love: "Love",
+        peace: "Peace"
+    },
+    zulu: {
+        hello: "Sawubona",
+        howAreYou: "Unjani?",
+        thankYou: "Ngiyabonga",
+        welcome: "Siyakwamukela",
+        goodMorning: "Sawubona ekuseni",
+        goodAfternoon: "Sawubona ntambama",
+        goodEvening: "Sawubona kusihlwa",
+        goodbye: "Hamba kahle",
+        seeYouLater: "Sizobonana",
+        yes: "Yebo",
+        no: "Cha",
+        please: "Ngiyacela",
+        sorry: "Ngiyaxolisa",
+        help: "Usizo",
+        water: "Amanzi",
+        food: "Ukudla",
+        friend: "Umngani",
+        love: "Uthando",
+        peace: "Ukuthula"
+    },
+    // Add all other languages here...
+};
+
+// Message limit
+const DAILY_LIMIT = 100;
+
+// State
+let currentLanguage = 'english';
+let currentContact = null;
+let contacts = [];
+let messages = {};
+let messageCount = parseInt(localStorage.getItem('buafela_count') || '0');
+let lastReset = localStorage.getItem('buafela_reset') || Date.now();
+let currentUser = {
+    name: 'Mzansi User',
+    phone: '0812345678',
+    avatar: '🇿🇦'
+};
+
+// DOM Elements
+const languageSelect = document.getElementById('language');
+const messageInput = document.getElementById('messageInput');
+const sendBtn = document.getElementById('sendBtn');
+const messagesContainer = document.getElementById('messagesContainer');
+const messageCountEl = document.getElementById('messageCount');
+const usedMessagesEl = document.getElementById('usedMessages');
+const progressBar = document.getElementById('progressBar');
+const charCount = document.getElementById('charCount');
+const messageLimitWarning = document.getElementById('messageLimitWarning');
+const currentChatName = document.getElementById('currentChatName');
+const chatStatus = document.getElementById('chatStatus');
+const messageInputContainer = document.getElementById('messageInputContainer');
+const welcomeScreen = document.getElementById('welcomeScreen');
+const contactList = document.getElementById('contactList');
+const contactsSidebar = document.getElementById('contactsSidebar');
+const addContactBtn = document.getElementById('addContactBtn');
+const contactsBtn = document.getElementById('contactsBtn');
+const closeContacts = document.getElementById('closeContacts');
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const contactModal = document.getElementById('contactModal');
+const contactForm = document.getElementById('contactForm');
+const shareModal = document.getElementById('shareModal');
+const copyLinkBtn = document.getElementById('copyLinkBtn');
+const shareLink = document.getElementById('shareLink');
+const welcomeAddContact = document.getElementById('welcomeAddContact');
+const toggleRef = document.getElementById('toggleRef');
+const phrasesGrid = document.getElementById('phrasesGrid');
+const quickRef = document.getElementById('quickRef');
+
+// Initialize
+function init() {
+    loadContacts();
+    loadMessages();
+    checkDailyLimit();
+    loadPhrases();
+    setupEventListeners();
+    updateContactsList();
+    updateMessageCount();
+
+    // Check if we have contacts
+    if (contacts.length === 0) {
+        // Add demo contacts
+        addDemoContacts();
+    }
+}
+
+// Load contacts from localStorage
+function loadContacts() {
+    const saved = localStorage.getItem('buafela_contacts');
+    if (saved) {
+        contacts = JSON.parse(saved);
+    } else {
+        contacts = [];
+    }
+}
+
+// Save contacts to localStorage
+function saveContacts() {
+    localStorage.setItem('buafela_contacts', JSON.stringify(contacts));
+    updateContactsList();
+}
+
+// Load messages from localStorage
+function loadMessages() {
+    const saved = localStorage.getItem('buafela_messages');
+    if (saved) {
+        messages = JSON.parse(saved);
+    } else {
+        messages = {};
+    }
+}
+
+// Save messages to localStorage
+function saveMessages() {
+    localStorage.setItem('buafela_messages', JSON.stringify(messages));
+}
+
+// Add demo contacts
+function addDemoContacts() {
+    const demos = [
+        {
+            id: '1',
+            name: 'Thabo Mokoena',
+            phone: '0812345678',
+            language: 'zulu',
+            online: true,
+            avatar: '🇿🇦'
+        },
+        {
+            id: '2',
+            name: 'Maria Ndlovu',
+            phone: '0823456789',
+            language: 'xhosa',
+            online: false,
+            avatar: '🇿🇦'
+        },
+        {
+            id: '3',
+            name: 'Johan van der Merwe',
+            phone: '0834567890',
+            language: 'afrikaans',
+            online: true,
+            avatar: '🇿🇦'
+        }
+    ];
+
+    demos.forEach(contact => {
+        addContact(contact.name, contact.phone, contact.language);
+    });
+}
+
+// Add new contact
+function addContact(name, phone, language = 'english') {
+    // Format phone number (remove spaces, ensure SA format)
+    phone = phone.replace(/\s/g, '');
+    if (!phone.startsWith('0')) {
+        phone = '0' + phone;
+    }
+
+    const contact = {
+        id: Date.now().toString(),
+        name: name,
+        phone: phone,
+        language: language,
+        online: Math.random() > 0.5, // Random online status for demo
+        avatar: '🇿🇦',
+        added: new Date().toISOString()
+    };
+
+    contacts.push(contact);
+    saveContacts();
+    updateContactsList();
+
+    // Initialize message history for this contact
+    if (!messages[contact.id]) {
+        messages[contact.id] = [];
+    }
+
+    showNotification(`Contact ${name} added successfully!`, 'success');
+}
+
+// Update contacts list in UI
+function updateContactsList() {
+    if (!contactList) return;
+
+    if (contacts.length === 0) {
+        contactList.innerHTML = `
+            <div class="empty-state">
+                <p>No contacts yet</p>
+                <small>Add contacts to start chatting</small>
+            </div>
+        `;
+        return;
+    }
+
+    contactList.innerHTML = contacts.map(contact => `
+        <div class="contact-item ${currentContact && currentContact.id === contact.id ? 'active' : ''}"
+             onclick="selectContact('${contact.id}')">
+            <div class="contact-avatar">
+                ${contact.avatar}
+                <span class="contact-status ${contact.online ? 'online' : ''}"></span>
+            </div>
+            <div class="contact-info">
+                <div class="contact-name">
+                    <span>${contact.name}</span>
+                    <span class="contact-language">${getLanguageName(contact.language)}</span>
+                </div>
+                <div class="contact-phone">${formatPhoneNumber(contact.phone)}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Select a contact to chat with
+window.selectContact = function(contactId) {
+    const contact = contacts.find(c => c.id === contactId);
+    if (!contact) return;
+
+    currentContact = contact;
+    currentChatName.textContent = contact.name;
+    chatStatus.textContent = contact.online ? '🟢 Online' : '⚪ Offline';
+
+    // Hide welcome screen, show message input
+    welcomeScreen.style.display = 'none';
+    messageInputContainer.style.display = 'flex';
+
+    // Load messages for this contact
+    displayMessages(contactId);
+
+    // Update active state in contact list
+    updateContactsList();
+
+    // On mobile, hide contacts sidebar after selecting
+    if (window.innerWidth <= 768) {
+        contactsSidebar.classList.remove('mobile-show');
+    }
+};
+
+// Display messages for a contact
+function displayMessages(contactId) {
+    const contactMessages = messages[contactId] || [];
+
+    if (contactMessages.length === 0) {
+        messagesContainer.innerHTML = `
+            <div class="empty-chat">
+                <p>No messages yet. Say hello!</p>
+            </div>
+        `;
+        return;
+    }
+
+    messagesContainer.innerHTML = contactMessages.map(msg => `
+        <div class="message ${msg.from === 'me' ? 'own' : ''}">
+            <div class="message-avatar">${msg.from === 'me' ? currentUser.avatar : currentContact.avatar}</div>
+            <div class="message-content">
+                <div class="message-header">
+                    <span class="message-author">${msg.from === 'me' ? 'You' : currentContact.name}</span>
+                    <span class="message-time">${formatTime(msg.timestamp)}</span>
+                </div>
+                <div class="message-text">${msg.text}</div>
+                <span class="message-language">${getLanguageName(msg.language)}</span>
+                ${msg.from === 'me' ? `<div class="message-status ${msg.delivered ? 'delivered' : ''}">${msg.delivered ? '✓✓ Delivered' : '✓ Sent'}</div>` : ''}
+            </div>
+        </div>
+    `).join('');
+
+    // Scroll to bottom
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Send a message
+function sendMessage() {
+    if (!currentContact) {
+        showNotification('Select a contact first!', 'error');
+        return;
+    }
+
+    if (messageCount >= DAILY_LIMIT) {
+        showNotification('Daily message limit reached!', 'error');
+        return;
+    }
+
+    const text = messageInput.value.trim();
+    if (!text) return;
+
+    // Create message
+    const message = {
+        id: Date.now(),
+        from: 'me',
+        to: currentContact.id,
+        text: text,
+        language: currentLanguage,
+        timestamp: new Date().toISOString(),
+        delivered: false
+    };
+
+    // Save to messages
+    if (!messages[currentContact.id]) {
+        messages[currentContact.id] = [];
+    }
+    messages[currentContact.id].push(message);
+
+    // Update count
+    messageCount++;
+    localStorage.setItem('buafela_count', messageCount);
+    updateMessageCount();
+
+    // Clear input
+    messageInput.value = '';
+    checkInput();
+
+    // Display messages
+    displayMessages(currentContact.id);
+
+    // Save to localStorage
+    saveMessages();
+
+    // Simulate delivery after 1 second
+    setTimeout(() => {
+        message.delivered = true;
+        saveMessages();
+        displayMessages(currentContact.id);
+    }, 1000);
+
+    // Simulate reply after 2-4 seconds (if contact is online)
+    if (currentContact.online && messageCount < DAILY_LIMIT) {
+        setTimeout(() => simulateReply(currentContact), 2000 + Math.random() * 2000);
+    }
+}
+
+// Simulate reply from contact
+function simulateReply(contact) {
+    if (messageCount >= DAILY_LIMIT) return;
+
+    const replies = [
+        translations[contact.language]?.hello || "Hello",
+        translations[contact.language]?.howAreYou || "How are you?",
+        translations[contact.language]?.thankYou || "Thank you",
+        "👍",
+        "🇿🇦",
+        "😊",
+        "👋"
+    ];
+
+    const reply = {
+        id: Date.now(),
+        from: contact.id,
+        to: 'me',
+        text: replies[Math.floor(Math.random() * replies.length)],
+        language: contact.language,
+        timestamp: new Date().toISOString(),
+        delivered: true
+    };
+
+    messages[contact.id].push(reply);
+    messageCount++;
+    localStorage.setItem('buafela_count', messageCount);
+    updateMessageCount();
+    saveMessages();
+    displayMessages(contact.id);
+
+    // Show notification if not in this chat
+    if (!currentContact || currentContact.id !== contact.id) {
+        showNotification(`New message from ${contact.name}`, 'success');
+    }
+}
+
+// Format phone number for display
+function formatPhoneNumber(phone) {
+    if (phone.length === 10) {
+        return `${phone.slice(0,3)} ${phone.slice(3,6)} ${phone.slice(6)}`;
+    }
+    return phone;
+}
+
+// Get language name from code
+function getLanguageName(code) {
+    const names = {
+        english: 'English',
+        zulu: 'isiZulu',
+        xhosa: 'isiXhosa',
+        afrikaans: 'Afrikaans',
+        sepedi: 'Sepedi',
+        setswana: 'Setswana',
+        sesotho: 'Sesotho',
+        tsonga: 'Xitsonga',
+        swati: 'siSwati',
+        venda: 'Tshivenda',
+        ndebele: 'isiNdebele'
+    };
+    return names[code] || code;
+}
+
+// Format time
+function formatTime(isoString) {
+    const date = new Date(isoString);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+// Check daily limit
+function checkDailyLimit() {
+    const now = Date.now();
+    const oneDay = 24 * 60 * 60 * 1000;
+
+    if (now - parseInt(lastReset) > oneDay) {
+        messageCount = 0;
+        lastReset = now;
+        localStorage.setItem('buafela_reset', lastReset);
+        localStorage.setItem('buafela_count', messageCount);
+    }
+}
+
+// Update message count display
+function updateMessageCount() {
+    const remaining = DAILY_LIMIT - messageCount;
+    messageCountEl.textContent = remaining;
+
+    if (messageCount >= DAILY_LIMIT) {
+        messageInput.disabled = true;
+        sendBtn.disabled = true;
+        if (messageLimitWarning) messageLimitWarning.classList.remove('hidden');
+    } else {
+        messageInput.disabled = false;
+        sendBtn.disabled = false;
+        if (messageLimitWarning) messageLimitWarning.classList.add('hidden');
+    }
+}
+
+// Check input and update send button
+function checkInput() {
+    const text = messageInput.value.trim();
+    const length = text.length;
+
+    if (charCount) {
+        charCount.textContent = `${length}/500`;
+    }
+
+    if (length > 0 && messageCount < DAILY_LIMIT && currentContact) {
+        sendBtn.disabled = false;
+    } else {
+        sendBtn.disabled = true;
+    }
+}
+
+// Load common phrases
+function loadPhrases() {
+    if (!phrasesGrid) return;
+
+    const phrases = [
+        { phrase: translations[currentLanguage]?.hello || "Hello", translation: 'Hello' },
+        { phrase: translations[currentLanguage]?.howAreYou || "How are you?", translation: 'How are you?' },
+        { phrase: translations[currentLanguage]?.thankYou || "Thank you", translation: 'Thank you' },
+        { phrase: translations[currentLanguage]?.goodbye || "Goodbye", translation: 'Goodbye' },
+        { phrase: translations[currentLanguage]?.yes || "Yes", translation: 'Yes' },
+        { phrase: translations[currentLanguage]?.no || "No", translation: 'No' },
+        { phrase: translations[currentLanguage]?.please || "Please", translation: 'Please' },
+        { phrase: translations[currentLanguage]?.sorry || "Sorry", translation: 'Sorry' }
+    ];
+
+    phrasesGrid.innerHTML = phrases.map(p => `
+        <div class="phrase-item" onclick="usePhrase('${p.phrase}')">
+            <strong>${p.phrase}</strong>
+            <small>${p.translation}</small>
+        </div>
+    `).join('');
+}
+
+// Use a phrase
+window.usePhrase = function(phrase) {
+    if (!currentContact) {
+        showNotification('Select a contact first!', 'error');
+        return;
+    }
+    messageInput.value = phrase;
+    messageInput.focus();
+    checkInput();
+};
+
+// Show notification
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// Setup event listeners
+function setupEventListeners() {
+    // Language change
+    languageSelect.addEventListener('change', (e) => {
+        currentLanguage = e.target.value;
+        loadPhrases();
+    });
+
+    // Send message
+    sendBtn.addEventListener('click', sendMessage);
+
+    // Message input
+    messageInput.addEventListener('input', checkInput);
+    messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+    // Add contact button
+    addContactBtn.addEventListener('click', () => {
+        contactModal.classList.add('show');
+    });
+
+    contactsBtn.addEventListener('click', () => {
+        contactsSidebar.classList.toggle('mobile-show');
+    });
+
+    closeContacts.addEventListener('click', () => {
+        contactsSidebar.classList.remove('mobile-show');
+    });
+
+    mobileMenuBtn.addEventListener('click', () => {
+        contactsSidebar.classList.add('mobile-show');
+    });
+
+    // Contact form
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('contactName').value;
+        const phone = document.getElementById('contactPhone').value;
+        const language = document.getElementById('contactLanguage').value;
+
+        addContact(name, phone, language);
+
+        contactModal.classList.remove('show');
+        contactForm.reset();
+    });
+
+    // Close modals - FIXED VERSION
+    const closeButtons = document.querySelectorAll('.modal .close, .modal .close-btn');
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Find the parent modal and hide it
+            const modal = this.closest('.modal');
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        });
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(e) {
+        if (e.target.classList.contains('modal')) {
+            e.target.classList.remove('show');
+        }
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+            e.target.classList.remove('show');
+        }
+    });
+
+    // Direct fix for Add Contact modal
+    const contactModal = document.getElementById('contactModal');
+    const closeContactModal = contactModal?.querySelector('.close');
+
+    if (closeContactModal) {
+        closeContactModal.addEventListener('click', function() {
+            contactModal.classList.remove('show');
+        });
+    }
+
+    // Direct fix for Share modal
+    const shareModal = document.getElementById('shareModal');
+    const closeShareModal = shareModal?.querySelector('.close');
+
+    if (closeShareModal) {
+        closeShareModal.addEventListener('click', function() {
+            shareModal.classList.remove('show');
+        });
+    }
+
+    // Copy share link
+    copyLinkBtn.addEventListener('click', () => {
+        shareLink.select();
+        navigator.clipboard.writeText(shareLink.value);
+        showNotification('Link copied to clipboard!', 'success');
+    });
+
+    // Welcome add contact
+    welcomeAddContact.addEventListener('click', () => {
+        contactModal.classList.add('show');
+    });
+
+    // Toggle quick reference
+    toggleRef.addEventListener('click', () => {
+        document.querySelector('.ref-content').classList.toggle('hidden');
+    });
+
+    // Share button (you can add this to header)
+    const shareBtn = document.createElement('button');
+    shareBtn.className = 'icon-btn';
+    shareBtn.innerHTML = '📤';
+    shareBtn.title = 'Share BuaFela';
+    shareBtn.onclick = () => shareModal.classList.add('show');
+    document.querySelector('.header-actions').appendChild(shareBtn);
+}
+
+// Initialize the app
+init();
+
+// SUPER SIMPLE FIX - Add this at the very bottom
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all close buttons
+    const closeButtons = document.querySelectorAll('.modal .close');
+
+    // Add click event to each
+    closeButtons.forEach(button => {
+        button.onclick = function() {
+            // Find the modal and hide it
+            const modal = this.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.remove('show');
+            }
+        };
+    });
+
+    // Close when clicking outside
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+                this.classList.remove('show');
+            }
+        });
+    });
+});
