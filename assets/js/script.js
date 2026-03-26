@@ -1,268 +1,190 @@
-// ========================================
-// MAIN.JS - Complete Interactive Portfolio
-// ========================================
+/* ============================================================
+   Thuto Seroto — Instagram Portfolio
+   script.js
+   ============================================================ */
 
-// Test to verify loading
-console.log('✅ script.js is loaded!');
+// ─── PROJECT DATA ───────────────────────────────────────────
+const projects = [
+  {
+    title: "Currency Calculator",
+    tech: "HTML5 · CSS3 · JavaScript · REST API",
+    desc: "A real-time currency converter supporting USD, ZAR, and BWP using live exchange rates pulled from a public API. Clean, responsive interface with error handling for network failures.",
+    skills: ["API Integration", "DOM Manipulation", "Event Handling", "Error Handling", "Responsive Layout"],
+    demo: "https://thutoseroto.github.io/MyPortfolio/projects/currency-calculator/",
+    github: "https://github.com/thutoseroto/MyPortfolio/tree/master/projects/currency-calculator"
+  },
+  {
+    title: "Recipe Finder",
+    tech: "HTML5 · CSS3 · JavaScript · Spoonacular API",
+    desc: "Search recipes by ingredient with a thoughtful fallback to traditional South African dishes like Umqombothi and Chakalaka when API results are limited. Includes modal windows and rich data parsing.",
+    skills: ["Search Algorithms", "Modal Windows", "Data Parsing", "Fallback Strategy", "Cultural Content"],
+    demo: "https://thutoseroto.github.io/MyPortfolio/projects/recipe-finder/",
+    github: "https://github.com/thutoseroto/MyPortfolio/tree/master/projects/recipe-finder"
+  },
+  {
+    title: "Meme Generator",
+    tech: "HTML5 · CSS3 · JavaScript · Canvas API",
+    desc: "Upload any image, add custom top/bottom text, and export your meme. Built on the Canvas API with FileReader for image handling and dynamic text styling.",
+    skills: ["Canvas API", "FileReader API", "Image Manipulation", "Dynamic Styling", "Export Functionality"],
+    demo: "https://thutoseroto.github.io/MyPortfolio/projects/meme-generator/",
+    github: "https://github.com/thutoseroto/MyPortfolio/tree/master/projects/meme-generator"
+  },
+  {
+    title: "MaNyasa Store",
+    tech: "HTML5 · CSS3 · JavaScript · localStorage",
+    desc: "Full e-commerce platform for Malawian clothing, crafts, kitchenware, and traditional tools. Includes product filtering & sorting, cart management, and persistent storage.",
+    skills: ["State Management", "localStorage", "Filtering & Sorting", "E-commerce Logic", "Product Modeling"],
+    demo: "https://thutoseroto.github.io/MyPortfolio/projects/manyasa-store/",
+    github: "https://github.com/thutoseroto/MyPortfolio/tree/master/projects/manyasa-store"
+  },
+  {
+    title: "BuaFela Chat App",
+    tech: "HTML5 · CSS3 · JavaScript · PWA · Service Workers",
+    desc: "Real-time chat application supporting all 9 South African official languages plus more. Features PWA support, offline functionality via Service Workers, contact management, and daily message limits.",
+    skills: ["PWA Development", "Service Workers", "Offline Support", "Multilingual UI", "Contact Management"],
+    demo: "https://thutoseroto.github.io/MyPortfolio/projects/buafela/",
+    github: "https://github.com/thutoseroto/MyPortfolio/tree/master/projects/buafela"
+  },
+  {
+    title: "Portfolio Website",
+    tech: "HTML5 · CSS3 · JavaScript · Formspree",
+    desc: "Personal portfolio built from scratch showcasing all projects, skills, and certifications. Includes animation, responsive design, SEO fundamentals, and Formspree for contact form submissions.",
+    skills: ["Responsive Design", "Formspree Integration", "CSS Animations", "SEO Fundamentals", "Project Showcasing"],
+    demo: "https://thutoseroto.github.io/MyPortfolio/",
+    github: "https://github.com/thutoseroto/MyPortfolio"
+  }
+];
 
-// Wait for DOM to load
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('✅ DOM fully loaded');
+// ─── STORY / SKILL DATA ─────────────────────────────────────
+const stories = {
+  python: {
+    emoji: "🐍",
+    title: "Python",
+    body: "Intermediate proficiency — data manipulation, scripting, and exploring data engineering pipelines. Currently deepening Python skills at WeThinkCode_."
+  },
+  web: {
+    emoji: "🌐",
+    title: "Web Development",
+    body: "HTML5, CSS3, and JavaScript are my strongest area. Built 6 live projects using DOM manipulation, APIs, Canvas, and PWA patterns."
+  },
+  azure: {
+    emoji: "☁️",
+    title: "Microsoft Azure",
+    body: "Certified in Azure Fundamentals, DevOps Engineer Expert, AZ-700 Networking, and DP-600 Fabric Analytics — all achieved in 2025."
+  },
+  data: {
+    emoji: "📊",
+    title: "Data Engineering",
+    body: "Current main focus at WeThinkCode_. Studying ETL pipelines, data warehousing, and analytics engineering with Microsoft Fabric."
+  },
+  sql: {
+    emoji: "🗄️",
+    title: "SQL & Databases",
+    body: "Intermediate in PostgreSQL, MySQL, and general SQL. Working knowledge of Firebase. Database design is a growing area of focus."
+  },
+  java: {
+    emoji: "☕",
+    title: "Java",
+    body: "Intermediate Java with IntelliJ IDEA as the primary IDE. Used in coursework including OOP principles and Thymeleaf-based web apps."
+  },
+  git: {
+    emoji: "🔧",
+    title: "Git & Tools",
+    body: "All 6 projects version-controlled on GitHub. Daily use of VS Code and Git for branching, commits, and collaboration workflows."
+  }
+};
 
-    // ========================================
-    // 1. MOBILE MENU TOGGLE
-    // ========================================
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
+// ─── TAB SWITCHING (top icon tabs) ──────────────────────────
+function switchTab(tab, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
 
-    if (mobileMenuToggle && navLinks) {
-        mobileMenuToggle.addEventListener('click', function() {
-            const expanded = this.getAttribute('aria-expanded') === 'true' || false;
-            this.setAttribute('aria-expanded', !expanded);
-            navLinks.classList.toggle('active');
-            document.body.style.overflow = expanded ? 'auto' : 'hidden';
-        });
+// ─── BOTTOM NAV SWITCHING ───────────────────────────────────
+const tabMap   = { home: 'grid', search: 'feed', profile: 'about', dm: 'contact', certs: 'certs' };
+const tabOrder = ['grid', 'feed', 'about', 'contact', 'certs'];
 
-        // Close menu when clicking a link
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', function() {
-                mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                navLinks.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
+function switchBottomNav(section) {
+  // Update bottom nav active state
+  document.querySelectorAll('.bottom-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('bnav-' + section).classList.add('active');
 
-        // Close menu on resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                navLinks.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-    }
+  // Sync tab bar + show correct panel
+  const targetTab = tabMap[section];
+  const idx = tabOrder.indexOf(targetTab);
+  const tabBtns = document.querySelectorAll('.tab-btn');
 
-    // ========================================
-    // 2. CONTACT FORM HANDLING WITH FORMSPREE
-    // ========================================
-    const contactForm = document.getElementById('contact-form');
-    const formStatus = document.getElementById('form-status');
-    const submitBtn = document.getElementById('submit-btn');
+  if (idx >= 0) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + targetTab).classList.add('active');
+    if (tabBtns[idx]) tabBtns[idx].classList.add('active');
+  }
 
-    if (contactForm) {
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Prevent page reload
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-            // Get form data as FormData (not JSON)
-            const formData = new FormData(contactForm);
+// ─── PROJECT MODAL ──────────────────────────────────────────
+function openProject(idx) {
+  const p = projects[idx];
+  document.getElementById('modal-title').textContent = p.title;
+  document.getElementById('modal-tech').textContent  = p.tech;
+  document.getElementById('modal-desc').textContent  = p.desc;
 
-            // Show loading state
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'SENDING...';
-            submitBtn.disabled = true;
+  document.getElementById('modal-skills').innerHTML =
+    p.skills.map(s => `<span class="modal-skill">${s}</span>`).join('');
 
-            // Clear any previous status messages
-            if (formStatus) {
-                formStatus.innerHTML = '';
-            }
+  document.getElementById('modal-links').innerHTML = `
+    <a class="modal-link-btn modal-link-primary"   href="${p.demo}"   target="_blank">🔗 Live Demo</a>
+    <a class="modal-link-btn modal-link-secondary" href="${p.github}" target="_blank">⌨️ GitHub</a>
+  `;
 
-            try {
-                // REPLACE THIS URL WITH YOUR FORMSPREE ENDPOINT
-                const response = await fetch('https://formspree.io/f/xqedwgjv', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
+  document.getElementById('project-modal').classList.add('open');
+}
 
-                if (response.ok) {
-                    // Success!
-                    contactForm.reset(); // Clear the form
+function closeModal(e) {
+  if (e.target === document.getElementById('project-modal')) {
+    document.getElementById('project-modal').classList.remove('open');
+  }
+}
 
-                    // Show success message in form status div
-                    if (formStatus) {
-                        formStatus.innerHTML = '<div class="success-message">✅ Message sent successfully! I\'ll get back to you within 24 hours.</div>';
-                    }
+// ─── STORY MODAL ────────────────────────────────────────────
+function openStory(key) {
+  const s = stories[key];
+  document.getElementById('story-emoji').textContent = s.emoji;
+  document.getElementById('story-title').textContent = s.title;
+  document.getElementById('story-body').textContent  = s.body;
+  document.getElementById('story-modal').classList.add('open');
+}
 
-                    // Show notification popup
-                    showNotification('✅ Message sent successfully! I\'ll get back to you soon.', 'success');
+function closeStory() {
+  document.getElementById('story-modal').classList.remove('open');
+}
 
-                    // Hide success message after 5 seconds
-                    setTimeout(() => {
-                        if (formStatus) {
-                            formStatus.innerHTML = '';
-                        }
-                    }, 5000);
+// ─── CLIPBOARD UTILITIES ─────────────────────────────────────
+function copyContact() {
+  const info = 'Email: thutoseroto@gmail.com | Phone: 062 278 7446 | GitHub: https://github.com/Thuto-Seroto';
+  navigator.clipboard.writeText(info).then(() => {
+    alert('Contact info copied to clipboard!');
+  }).catch(() => {
+    alert('Could not copy — please copy manually: thutoseroto@gmail.com');
+  });
+}
 
-                } else {
-                    // Formspree returned an error
-                    const data = await response.json();
-                    let errorMessage = 'Failed to send message';
+function copyPhone() {
+  navigator.clipboard.writeText('062 278 7446').then(() => {
+    alert('Phone number copied to clipboard!');
+  }).catch(() => {
+    alert('Could not copy — please copy manually: 062 278 7446');
+  });
+}
 
-                    if (data.errors) {
-                        errorMessage = data.errors.map(error => error.message).join(', ');
-                    }
-
-                    throw new Error(errorMessage);
-                }
-            } catch (error) {
-                // Show error message
-                if (formStatus) {
-                    formStatus.innerHTML = `<div class="error-message">❌ ${error.message}. Please try again or email me directly.</div>`;
-                }
-
-                // Show error notification
-                showNotification('❌ ' + error.message, 'error');
-                console.error('Form error:', error);
-            } finally {
-                // Reset button state
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
-        });
-    }
-
-    // ========================================
-    // 3. NOTIFICATION SYSTEM
-    // ========================================
-    function showNotification(message, type = 'success') {
-        // Remove existing notification
-        const existingNotif = document.querySelector('.notification');
-        if (existingNotif) {
-            existingNotif.remove();
-        }
-
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.innerHTML = `
-            <div class="notification-content">
-                <span class="notification-icon">${type === 'success' ? '✓' : '⚠️'}</span>
-                <p>${message}</p>
-                <button class="notification-close" aria-label="Close">&times;</button>
-            </div>
-        `;
-
-        document.body.appendChild(notification);
-
-        // Show notification with animation
-        setTimeout(() => notification.classList.add('show'), 10);
-
-        // Auto-hide after 5 seconds
-        const timeout = setTimeout(() => {
-            hideNotification(notification);
-        }, 5000);
-
-        // Close button
-        const closeBtn = notification.querySelector('.notification-close');
-        closeBtn.addEventListener('click', () => {
-            clearTimeout(timeout);
-            hideNotification(notification);
-        });
-    }
-
-    function hideNotification(notification) {
-        notification.classList.remove('show');
-        setTimeout(() => {
-            if (notification.parentElement) {
-                notification.remove();
-            }
-        }, 300);
-    }
-
-    // ========================================
-    // 4. SCROLL ANIMATIONS
-    // ========================================
-    const animateOnScroll = function() {
-        const elements = document.querySelectorAll('.project-card, .skill-category, .preview-card, .numbered-card, .card-with-image, .academic-card');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        elements.forEach(element => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(20px)';
-            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(element);
-        });
-    };
-
-    animateOnScroll();
-
-    // ========================================
-    // 5. SCROLL TO TOP BUTTON
-    // ========================================
-    const scrollBtn = document.createElement('button');
-    scrollBtn.innerHTML = '↑';
-    scrollBtn.className = 'scroll-top';
-    scrollBtn.setAttribute('aria-label', 'Scroll to top');
-    document.body.appendChild(scrollBtn);
-
-    window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 300) {
-            scrollBtn.classList.add('show');
-        } else {
-            scrollBtn.classList.remove('show');
-        }
-    });
-
-    scrollBtn.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    // ========================================
-    // 6. COPY EMAIL TO CLIPBOARD
-    // ========================================
-    const copyEmailBtn = document.querySelector('.copy-email');
-    if (copyEmailBtn) {
-        copyEmailBtn.addEventListener('click', function() {
-            const email = 'thutoseroto@gmail.com';
-            navigator.clipboard.writeText(email).then(() => {
-                showNotification('✅ Email copied to clipboard!', 'success');
-            }).catch(() => {
-                showNotification('❌ Failed to copy email', 'error');
-            });
-        });
-    }
-
-    // ========================================
-    // 7. ACTIVE NAVIGATION HIGHLIGHTING
-    // ========================================
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const navItems = document.querySelectorAll('.nav-links a');
-
-    navItems.forEach(link => {
-        const linkPage = link.getAttribute('href');
-        if (linkPage === currentPage) {
-            link.classList.add('active');
-        }
-    });
-
-    // ========================================
-    // 8. PAGE LOAD ANIMATIONS
-    // ========================================
-    window.addEventListener('load', function() {
-        document.body.classList.add('loaded');
-
-        const heroContent = document.querySelector('.hero-content');
-        const heroImage = document.querySelector('.hero-image');
-
-        if (heroContent) {
-            heroContent.style.animation = 'fadeInUp 1s ease';
-        }
-        if (heroImage) {
-            heroImage.style.animation = 'fadeIn 1s ease';
-        }
-    });
-
+// ─── KEYBOARD ACCESSIBILITY ──────────────────────────────────
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.getElementById('project-modal').classList.remove('open');
+    document.getElementById('story-modal').classList.remove('open');
+  }
 });
